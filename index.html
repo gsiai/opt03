@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inversiones Inpelka C.A. | Más que Construcciones Soluciones</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --rojo: #FF0000;
+            --naranja: #FF6B00;
+            --verde: #4CAF50;
+            --blanco: #FFFFFF;
+            --gris-claro: #F5F5F5;
+            --gris: #757575;
+            --negro: #212121;
+            --gradient: linear-gradient(135deg, #FF0000 0%, #FF6B00 50%, #4CAF50 100%);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--negro);
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVEGACIÓN ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--blanco);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.4rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img { height: 65px; object-fit: contain; }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--negro);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover { color: var(--rojo); }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--rojo);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px,-6px); }
+
+        /* ===== HERO CON TRIÁNGULO CORREGIDO ===== */
+        .hero {
+            margin-top: 75px;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(135deg, rgba(0, 100, 200, 0.3) 0%, rgba(0, 50, 100, 0.4) 50%, rgba(0, 30, 60, 0.6) 100%),
+                url('https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            z-index: 1;
+        }
+
+        .hero-sky-overlay {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(255,255,255,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 30%, rgba(200,230,255,0.1) 0%, transparent 40%),
+                linear-gradient(180deg, rgba(100,180,255,0.2) 0%, rgba(0,50,100,0.3) 100%);
+            z-index: 2;
+            animation: skyFloat 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes skyFloat {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.02) translate(-5px, -5px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            max-width: 900px;
+        }
+
+        /* ===== TRIÁNGULO CON BORDE UNIFORME Y LOGO POSICIONADO ===== */
+        .hero-logo-triangle {
+            width: 320px;
+            height: 320px;
+            margin: 0 auto 2.5rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.4));
+            animation: floatTriangle 4s ease-in-out infinite;
+        }
+
+        @keyframes floatTriangle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Borde exterior blanco */
+        .hero-logo-triangle::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--blanco);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            z-index: 1;
+        }
+
+        /* Fondo interior con borde uniforme de 6px en los 3 lados */
+        .hero-logo-triangle::after {
+            content: '';
+            position: absolute;
+            inset: 6px; /* Grosor idéntico en costados e inferior */
+            background: 
+                linear-gradient(180deg, rgba(0, 80, 160, 0.35) 0%, rgba(0, 120, 200, 0.45) 35%, rgba(34, 139, 34, 0.6) 100%),
+                url('https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=400&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center bottom; /* Muestra la grama en la parte inferior */
+            background-blend-mode: overlay;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            z-index: 2;
+        }
+
+        /* Cuadrícula de paneles */
+        .hero-logo-triangle .solar-grid {
+            position: absolute;
+            inset: 6px;
+            z-index: 3;
+            background: 
+                repeating-linear-gradient(0deg, transparent, transparent 14px, rgba(255,255,255,0.08) 14px, rgba(255,255,255,0.08) 15px),
+                repeating-linear-gradient(90deg, transparent, transparent 14px, rgba(255,255,255,0.08) 14px, rgba(255,255,255,0.08) 15px);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            pointer-events: none;
+        }
+
+        /* Contenedor del logo: posicionado en la zona inferior (grama) */
+        .hero-logo-inner {
+            position: relative;
+            z-index: 4;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 95px; /* Empuja el logo hacia la zona de grama */
+        }
+
+        .logo-container {
+            width: 145px;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.35);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: auto;
+            max-width: 125px;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.6));
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            letter-spacing: 5px;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.6);
+            margin-bottom: 1rem;
+            margin-top: 0.5rem;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .cta-buttons {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary { background: var(--rojo); color: white; }
+        .btn-primary:hover { background: #cc0000; transform: translateY(-2px); }
+        .btn-secondary { background: white; color: var(--rojo); }
+        .btn-secondary:hover { background: var(--verde); color: white; transform: translateY(-2px); }
+
+        /* ===== BOTÓN FLOTANTE DE WHATSAPP ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 65px;
+            height: 65px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+            z-index: 999;
+            transition: all 0.3s ease;
+            animation: whatsappPulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+            background: #128C7E;
+        }
+
+        .whatsapp-float i { transition: transform 0.3s ease; }
+        .whatsapp-float:hover i { transform: rotate(15deg); }
+
+        .whatsapp-float::before {
+            content: '¡Contáctanos por WhatsApp!';
+            position: absolute;
+            right: 75px;
+            background: white;
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .whatsapp-float::after {
+            content: '';
+            position: absolute;
+            right: 65px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 6px solid transparent;
+            border-left-color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .whatsapp-float:hover::before,
+        .whatsapp-float:hover::after { opacity: 1; }
+
+        @keyframes whatsappPulse {
+            0% { box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5); }
+            50% { box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5), 0 0 0 15px rgba(37, 211, 102, 0.15); }
+            100% { box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5); }
+        }
+
+        /* ===== RESTO DE ESTILOS (INCHANGÉS) ===== */
+        section { padding: 4rem 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.5rem; color: var(--rojo); margin-bottom: 0.5rem; }
+        .section-subtitle { text-align: center; color: var(--verde); font-style: italic; margin-bottom: 2.5rem; }
+
+        .nosotros { background: linear-gradient(135deg, white, #f0f0f0); }
+        .nosotros-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .nosotros-text p { line-height: 1.9; color: #424242; margin-bottom: 1rem; }
+        .nosotros-img { border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+        .nosotros-img img { width: 100%; display: block; }
+        .vm-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+        .vm-card { padding: 2.5rem; border-radius: 20px; color: white; position: relative; overflow: hidden; }
+        .vm-card.vision { background: linear-gradient(135deg, var(--rojo), #FF4444); }
+        .vm-card.mision { background: linear-gradient(135deg, var(--verde), #388E3C); }
+        .vm-card i { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.9; }
+        .vm-card h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+        .vm-card p { line-height: 1.8; font-size: 0.95rem; }
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; }
+        .stat-box { text-align: center; padding: 1.5rem; background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); border-bottom: 4px solid var(--rojo); }
+        .stat-box .num { font-size: 2.5rem; font-weight: bold; color: var(--rojo); }
+        .stat-box .label { color: var(--gris); font-size: 0.9rem; }
+
+        .servicios { background: white; }
+        .servicios-dropdown-list { max-width: 900px; margin: 0 auto; }
+        .servicio-dropdown { margin-bottom: 1rem; border-radius: 15px; overflow: hidden; box-shadow: 0 3px 15px rgba(0,0,0,0.08); border: 1px solid #e0e0e0; transition: box-shadow 0.3s; }
+        .servicio-dropdown:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+        .servicio-dropdown-header { display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.5rem; background: white; cursor: pointer; transition: background 0.3s; user-select: none; }
+        .servicio-dropdown-header:hover { background: #fff5f5; }
+        .servicio-dropdown.active .servicio-dropdown-header { background: linear-gradient(135deg, rgba(255,0,0,0.05), rgba(76,175,80,0.05)); }
+        .servicio-num { width: 45px; height: 45px; background: var(--gradient); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1rem; flex-shrink: 0; }
+        .servicio-dropdown-title { flex: 1; font-size: 1.1rem; font-weight: 700; color: var(--negro); }
+        .servicio-dropdown-arrow { font-size: 1.2rem; color: var(--rojo); transition: transform 0.4s ease; }
+        .servicio-dropdown.active .servicio-dropdown-arrow { transform: rotate(180deg); }
+        .servicio-dropdown-body { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+        .servicio-dropdown.active .servicio-dropdown-body { max-height: 800px; }
+        .servicio-dropdown-content { padding: 1.5rem; border-top: 1px solid #e0e0e0; background: #fafafa; }
+        .servicio-dropdown-content p { color: var(--gris); line-height: 1.8; margin-bottom: 1.5rem; }
+        .servicio-dropdown-content .service-label { display: inline-block; padding: 0.3rem 1rem; background: var(--gradient); color: white; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 1rem; }
+        .servicio-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .servicio-gallery-item { position: relative; border-radius: 12px; overflow: hidden; cursor: pointer; box-shadow: 0 3px 15px rgba(0,0,0,0.1); transition: transform 0.3s; aspect-ratio: 4/3; }
+        .servicio-gallery-item:hover { transform: scale(1.05); }
+        .servicio-gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .servicio-gallery-item .zoom-icon { position: absolute; bottom: 10px; right: 10px; background: var(--rojo); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; opacity: 0; transition: opacity 0.3s; }
+        .servicio-gallery-item:hover .zoom-icon { opacity: 1; }
+
+        .image-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 3000; align-items: center; justify-content: center; padding: 2rem; }
+        .image-modal.show { display: flex; }
+        .image-modal-content { position: relative; max-width: 90%; max-height: 90vh; }
+        .image-modal-content img { max-width: 100%; max-height: 85vh; object-fit: contain; border-radius: 10px; }
+        .image-modal-close { position: absolute; top: -50px; right: 0; width: 45px; height: 45px; background: var(--rojo); color: white; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; transition: transform 0.3s; }
+        .image-modal-close:hover { transform: rotate(90deg); }
+        .image-modal-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: rgba(255,0,0,0.8); color: white; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; transition: background 0.3s; }
+        .image-modal-nav:hover { background: rgba(255,0,0,1); }
+        .image-modal-nav.prev { left: -70px; }
+        .image-modal-nav.next { right: -70px; }
+        .image-modal-counter { text-align: center; color: white; margin-top: 1rem; font-size: 0.9rem; }
+
+        .proyectos { background: linear-gradient(135deg, #f5f5f5, white); }
+        .proyectos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .proyecto-card { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); cursor: pointer; height: 350px; }
+        .proyecto-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .proyecto-card:hover img { transform: scale(1.1); }
+        .proyecto-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: white; padding: 2rem; }
+        .proyecto-overlay h3 { color: var(--rojo); font-size: 1.3rem; }
+        .proyecto-overlay p { font-size: 0.9rem; opacity: 0.9; }
+
+        .portafolio { background: white; }
+        .portafolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .portafolio-item { position: relative; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); height: 300px; }
+        .portafolio-item img { width: 100%; height: 100%; object-fit: cover; }
+        .portafolio-info { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(255,0,0,0.95), transparent); color: white; padding: 1.5rem; }
+
+        .proveedores { background: linear-gradient(135deg, var(--verde), #2E7D32); color: white; position: relative; }
+        .proveedores .section-title { color: white; }
+        .proveedores .section-title::after { background: var(--rojo); }
+        .proveedores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+        .proveedor-card { background: white; padding: 2rem; border-radius: 20px; text-align: center; transition: transform 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .proveedor-card:hover { transform: translateY(-8px); }
+        .proveedor-card h3 { color: var(--rojo); margin: 1rem 0 0.5rem; }
+        .proveedor-card p { color: var(--gris); font-size: 0.9rem; }
+        .proveedor-icon { width: 80px; height: 80px; margin: 0 auto; background: #f5f5f5; border-radius: 15px; display: flex; align-items: center; justify-content: center; }
+        .proveedor-icon i { font-size: 2.5rem; color: var(--naranja); }
+
+        .contacto { background: linear-gradient(135deg, white, #f5f5f5, white); position: relative; }
+        .contacto::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: var(--gradient); }
+        .contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .contacto-info { display: flex; flex-direction: column; gap: 1.2rem; }
+        .contacto-item { display: flex; align-items: flex-start; gap: 1.2rem; padding: 1.2rem; background: white; border-radius: 12px; box-shadow: 0 3px 15px rgba(0,0,0,0.08); border-left: 4px solid var(--rojo); transition: all 0.3s; }
+        .contacto-item:hover { transform: translateX(8px); border-left-color: var(--verde); }
+        .contacto-icon { width: 50px; height: 50px; background: var(--gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; flex-shrink: 0; }
+        .contacto-text h3 { color: var(--rojo); font-size: 1rem; margin-bottom: 0.3rem; }
+        .contacto-text p, .contacto-text a { color: var(--gris); text-decoration: none; }
+        .contacto-text a:hover { color: var(--verde); }
+        .contacto-form { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--rojo); font-weight: 600; font-size: 0.9rem; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.9rem 1rem; border: 2px solid #e0e0e0; border-radius: 10px; font-family: inherit; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--verde); }
+        .form-group textarea { min-height: 100px; resize: vertical; }
+        .btn-submit { width: 100%; padding: 1rem; background: var(--gradient); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: transform 0.3s; }
+        .btn-submit:hover { transform: translateY(-2px); }
+
+        footer { background: linear-gradient(135deg, #1a1a1a, #333); color: white; padding: 3rem 2rem 1rem; }
+        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-section h3 { color: var(--rojo); margin-bottom: 1rem; font-size: 1.1rem; }
+        .footer-section p, .footer-section a { color: #BDBDBD; text-decoration: none; line-height: 2; font-size: 0.9rem; }
+        .footer-section a:hover { color: var(--verde); }
+        .social-links { display: flex; gap: 0.8rem; margin-top: 1rem; }
+        .social-links a { width: 45px; height: 45px; background: linear-gradient(135deg, var(--naranja), var(--verde)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; transition: transform 0.3s; }
+        .social-links a:hover { transform: translateY(-5px) rotate(360deg); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: #9E9E9E; font-size: 0.85rem; }
+
+        .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 968px) {
+            .nav-menu { position: fixed; left: -100%; top: 70px; flex-direction: column; background: white; width: 100%; text-align: center; padding: 2rem 0; transition: left 0.3s; }
+            .nav-menu.active { left: 0; }
+            .hamburger { display: flex; }
+            .hero h1 { font-size: 2.5rem; }
+            .nosotros-grid, .contacto-grid { grid-template-columns: 1fr; }
+            .vm-cards { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .proyectos-grid { grid-template-columns: 1fr; }
+            .image-modal-nav.prev { left: 10px; }
+            .image-modal-nav.next { right: 10px; }
+            
+            .hero-logo-triangle { width: 240px; height: 240px; }
+            .hero-logo-triangle::after { inset: 5px; }
+            .hero-logo-triangle .solar-grid { inset: 5px; }
+            .hero-logo-inner { padding-bottom: 75px; }
+            .logo-container { width: 120px; padding: 8px; }
+            .logo-container img { max-width: 100px; }
+            
+            .whatsapp-float { width: 55px; height: 55px; font-size: 1.8rem; bottom: 20px; right: 20px; }
+            .whatsapp-float::before, .whatsapp-float::after { display: none; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.8rem; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .btn { width: 100%; justify-content: center; }
+            .stats { grid-template-columns: 1fr 1fr; }
+            section { padding: 3rem 1rem; }
+            .servicio-gallery { grid-template-columns: 1fr 1fr; }
+            
+            .hero-logo-triangle { width: 200px; height: 200px; }
+            .hero-logo-triangle::after { inset: 4px; }
+            .hero-logo-triangle .solar-grid { inset: 4px; }
+            .hero-logo-inner { padding-bottom: 65px; }
+            .logo-container { width: 100px; padding: 6px; }
+            .logo-container img { max-width: 85px; }
+            
+            .whatsapp-float { width: 50px; height: 50px; font-size: 1.6rem; bottom: 15px; right: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVEGACIÓN -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="img/Logo_InvInp.png" alt="Inversiones Inpelka C.A.">
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#portafolio">Portafolio</a></li>
+                <li><a href="#proveedores">Proveedores</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-sky-overlay"></div>
+        
+        <div class="hero-content">
+            <div class="hero-logo-triangle">
+                <div class="solar-grid"></div>
+                <div class="hero-logo-inner">
+                    <div class="logo-container">
+                        <img src="img/Logo_InvInp.png" alt="Inversiones Inpelka C.A.">
+                    </div>
+                </div>
+            </div>
+            
+            <h1>INPELKA</h1>
+            <p>MÁS QUE CONSTRUCCIONES SOLUCIONES</p>
+            <p style="margin-top: 1.5rem; font-size: 1.1rem; opacity: 0.9;">Empresa líder en desarrollo de infraestructura, energía renovable y construcción sostenible. Transformamos visiones en realidades con tecnología de punta.</p>
+            <div class="cta-buttons">
+                <a href="#servicios" class="btn btn-primary"><i class="fas fa-cogs"></i> Servicios</a>
+                <a href="#contacto" class="btn btn-secondary"><i class="fas fa-envelope"></i> Contáctanos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOSOTROS -->
+    <section class="nosotros" id="nosotros">
+        <div class="container">
+            <h2 class="section-title">Nosotros</h2>
+            <div class="nosotros-grid">
+                <div class="nosotros-text fade-up">
+                    <p>En <strong>Inversiones Inpelka C.A.</strong> fundada en <strong>2002</strong>, nos especializamos en la ejecución de obras de ingeniería civil para los sectores público y privado.</p>
+                    <p>Nuestra experiencia abarca obras hidráulicas, eléctricas, viales, edificaciones, energía solar, proyectos, maquinaria, avalúos y la instalación de equipos de seguridad electrónicos con tecnología de vanguardia.</p>
+                </div>
+                <div class="nosotros-img fade-up">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=700" alt="Equipo Inpelka">
+                </div>
+            </div>
+            <div class="vm-cards">
+                <div class="vm-card vision fade-up">
+                    <i class="fas fa-eye"></i>
+                    <h3>Visión</h3>
+                    <p>Ofrecer servicios de calidad y eficiencia en construcción, ingeniería, arquitectura, instalaciones y mantenimiento. Optimizamos recursos para reducir costos sin sacrificar excelencia.</p>
+                </div>
+                <div class="vm-card mision fade-up">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Misión</h3>
+                    <p>Ser la empresa constructora líder a nivel regional y nacional, destacándonos por responsabilidad, eficiencia y calidad. Fomentamos un equipo motivado e innovador.</p>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-box fade-up"><div class="num">24+</div><div class="label">Años de Experiencia</div></div>
+                <div class="stat-box fade-up"><div class="num">20+</div><div class="label">Proyectos</div></div>
+                <div class="stat-box fade-up"><div class="num">20+</div><div class="label">Clientes</div></div>
+                <div class="stat-box fade-up"><div class="num">10+</div><div class="label">Alianzas</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="servicios" id="servicios">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <p class="section-subtitle">Infraestructura que transforma</p>
+
+            <div class="servicios-dropdown-list">
+                <div class="servicio-dropdown fade-up">
+                    <div class="servicio-dropdown-header" onclick="toggleDropdown(this)">
+                        <div class="servicio-num">01</div>
+                        <div class="servicio-dropdown-title">Construcción de Obras Civiles Integrales</div>
+                        <div class="servicio-dropdown-arrow"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="servicio-dropdown-body">
+                        <div class="servicio-dropdown-content">
+                            <span class="service-label">INFRAESTRUCTURA</span>
+                            <p>Desarrollo de proyectos de infraestructura hidráulica, eléctrica, vial y de edificaciones, con enfoque en sostenibilidad y eficiencia. Ejecutamos obras de gran envergadura para los sectores público y privado.</p>
+                            <div class="servicio-gallery">
+                                <div class="servicio-gallery-item" onclick="openImageModal('obras-civiles', 0)">
+                                    <img src="img/ServiciosConstObrasCiviles_ProyInfraHidrulica00.png" alt="Obras civiles" onerror="this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400'">
+                                    <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                                <div class="servicio-gallery-item" onclick="openImageModal('obras-civiles', 1)">
+                                    <img src="img/ServiciosConstObrasCiviles_ProyInfraHidrulica01.png" alt="Obras civiles" onerror="this.src='https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400'">
+                                    <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="servicio-dropdown fade-up">
+                    <div class="servicio-dropdown-header" onclick="toggleDropdown(this)">
+                        <div class="servicio-num">02</div>
+                        <div class="servicio-dropdown-title">Proyectos de Infraestructura Hidráulica</div>
+                        <div class="servicio-dropdown-arrow"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="servicio-dropdown-body">
+                        <div class="servicio-dropdown-content">
+                            <span class="service-label">HIDRÁULICA</span>
+                            <p>Soluciones integrales desde sistemas de abastecimiento y distribución de agua hasta obras de drenaje y tratamiento, garantizando eficiencia y sostenibilidad en cada proyecto.</p>
+                            <div class="servicio-gallery">
+                                <div class="servicio-gallery-item" onclick="openImageModal('hidraulica', 0)">
+                                    <img src="img/Hidra00.jpg" alt="Hidráulica" onerror="this.src='https://images.unsplash.com/photo-1590644365607-1c5a0e1e030a?w=400'">
+                                    <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="servicio-dropdown fade-up">
+                    <div class="servicio-dropdown-header" onclick="toggleDropdown(this)">
+                        <div class="servicio-num">03</div>
+                        <div class="servicio-dropdown-title">Energía Solar Fotovoltaica</div>
+                        <div class="servicio-dropdown-arrow"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="servicio-dropdown-body">
+                        <div class="servicio-dropdown-content">
+                            <span class="service-label">ENERGÍA RENOVABLE</span>
+                            <p>Instalación de sistemas solares para residencias, comercios e industrias. Diseño, implementación y mantenimiento de proyectos de energía renovable con tecnología de última generación.</p>
+                            <div class="servicio-gallery">
+                                <div class="servicio-gallery-item" onclick="openImageModal('solar', 0)">
+                                    <img src="img/solar-1.jpg" alt="Solar" onerror="this.src='https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400'">
+                                    <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                                <div class="servicio-gallery-item" onclick="openImageModal('solar', 1)">
+                                    <img src="img/solar-2.jpg" alt="Solar" onerror="this.src='https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=400'">
+                                    <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="servicio-dropdown fade-up">
+                    <div class="servicio-dropdown-header" onclick="toggleDropdown(this)">
+                        <div class="servicio-num">04</div>
+                        <div class="servicio-dropdown-title">Maquinaria Pesada</div>
+                        <div class="servicio-dropdown-arrow"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="servicio-dropdown-body">
+                        <div class="servicio-dropdown-content">
+                            <span class="service-label">EQUIPAMIENTO</span>
+                            <p>Flota de maquinaria pesada de alta capacidad para movimiento de tierra, excavación, pavimentación y construcción. Equipos de última tecnología para proyectos de cualquier escala.</p>
+                            <div class="servicio-gallery">
+                                <div class="servicio-gallery-item" onclick="openImageModal('maquinaria', 0)">
+                                    <img src="img/BulldozerSinoway.png" alt="Maquinaria" onerror="this.src='https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=400'">
+                                    <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="servicio-dropdown fade-up">
+                    <div class="servicio-dropdown-header" onclick="toggleDropdown(this)">
+                        <div class="servicio-num">05</div>
+                        <div class="servicio-dropdown-title">Desarrollo de Software y Sistemas Informáticos</div>
+                        <div class="servicio-dropdown-arrow"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="servicio-dropdown-body">
+                        <div class="servicio-dropdown-content">
+                            <span class="service-label">TECNOLOGÍA</span>
+                            <p>Diseñamos y desarrollamos software y sistemas informáticos personalizados, optimizando procesos y brindando soluciones tecnológicas innovadoras para potenciar tu negocio.</p>
+                            <div class="servicio-gallery">
+                                <div class="servicio-gallery-item" onclick="openImageModal('software', 0)">
+                                    <img src="img/software-1.jpg" alt="Software" onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400'">
+                                    <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="servicio-dropdown fade-up">
+                    <div class="servicio-dropdown-header" onclick="toggleDropdown(this)">
+                        <div class="servicio-num">06</div>
+                        <div class="servicio-dropdown-title">Equipos de Seguridad Electrónica</div>
+                        <div class="servicio-dropdown-arrow"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="servicio-dropdown-body">
+                        <div class="servicio-dropdown-content">
+                            <span class="service-label">SEGURIDAD</span>
+                            <p>Instalación de equipos de videovigilancia y control de acceso con tecnología de vanguardia. Sistemas de seguridad integrales para empresas e instituciones.</p>
+                            <div class="servicio-gallery">
+                                <div class="servicio-gallery-item" onclick="openImageModal('seguridad', 0)">
+                                    <img src="img/Seg00.png" alt="Seguridad" onerror="this.src='https://images.unsplash.com/photo-1558002038-1055907df827?w=400'">
+                                    <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL IMAGEN -->
+    <div class="image-modal" id="imageModal">
+        <div class="image-modal-content">
+            <button class="image-modal-close" onclick="closeImageModal()">&times;</button>
+            <button class="image-modal-nav prev" onclick="navigateImage(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="image-modal-nav next" onclick="navigateImage(1)"><i class="fas fa-chevron-right"></i></button>
+            <img id="modalImage" src="" alt="Imagen del servicio">
+            <div class="image-modal-counter" id="modalCounter"></div>
+        </div>
+    </div>
+
+    <!-- PROYECTOS -->
+    <section class="proyectos" id="proyectos">
+        <div class="container">
+            <h2 class="section-title">Proyectos</h2>
+            <div class="proyectos-grid">
+                <div class="proyecto-card fade-up">
+                    <img src="img/EcoHotel.png" alt="Hotel Eco Resort">
+                    <div class="proyecto-overlay">
+                        <h3>Hotel Eco Resort</h3>
+                        <p>Complejo hotelero sostenible con energía solar</p>
+                    </div>
+                </div>
+                <div class="proyecto-card fade-up">
+                    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=700" alt="Colegio Internacional">
+                    <div class="proyecto-overlay">
+                        <h3>Colegio Internacional</h3>
+                        <p>Infraestructura educativa de vanguardia</p>
+                    </div>
+                </div>
+                <div class="proyecto-card fade-up">
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=700" alt="Centro de Salud">
+                    <div class="proyecto-overlay">
+                        <h3>Centro de Salud Integral</h3>
+                        <p>Hospital modular con tecnología renovable</p>
+                    </div>
+                </div>
+                <div class="proyecto-card fade-up">
+                    <img src="img/InfraVial00.jpg" alt="Vía Express">
+                    <div class="proyecto-overlay">
+                        <h3>Vía Express Regional</h3>
+                        <p>Carretera de 50km con iluminación LED solar</p>
+                    </div>
+                </div>
+                <div class="proyecto-card fade-up">
+                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=700" alt="Planta Solar">
+                    <div class="proyecto-overlay">
+                        <h3>Planta Fotovoltaica Industrial</h3>
+                        <p>Sistema de 5MW para zona industrial</p>
+                    </div>
+                </div>
+                <div class="proyecto-card fade-up">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700" alt="Torre Corporativa">
+                    <div class="proyecto-overlay">
+                        <h3>Torre Corporativa Verde</h3>
+                        <p>Edificio inteligente con certificación LEED</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTAFOLIO -->
+    <section class="portafolio" id="portafolio">
+        <div class="container">
+            <h2 class="section-title">Portafolio</h2>
+            <div class="portafolio-grid">
+                <div class="portafolio-item fade-up">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600" alt="Hoteles">
+                    <div class="portafolio-info"><h3><i class="fas fa-hotel"></i> Hoteles</h3><p>Complejos turísticos</p></div>
+                </div>
+                <div class="portafolio-item fade-up">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600" alt="Colegios">
+                    <div class="portafolio-info"><h3><i class="fas fa-school"></i> Colegios</h3><p>Instituciones educativas</p></div>
+                </div>
+                <div class="portafolio-item fade-up">
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600" alt="Salud">
+                    <div class="portafolio-info"><h3><i class="fas fa-hospital"></i> Centros de Salud</h3><p>Hospitales y clínicas</p></div>
+                </div>
+                <div class="portafolio-item fade-up">
+                    <img src="img/InfraVial03.png" alt="Vial">
+                    <div class="portafolio-info"><h3><i class="fas fa-road"></i> Infraestructura Vial</h3><p>Carreteras y vías</p></div>
+                </div>
+                <div class="portafolio-item fade-up">
+                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600" alt="Solar">
+                    <div class="portafolio-info"><h3><i class="fas fa-solar-panel"></i> Sistemas Fotovoltaicos</h3><p>Energía solar</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROVEEDORES -->
+    <section class="proveedores" id="proveedores">
+        <div class="container">
+            <h2 class="section-title">Empresas Aliadas</h2>
+            <div class="proveedores-grid">
+                <div class="proveedor-card fade-up">
+                    <div class="proveedor-icon"><i class="fas fa-leaf"></i></div>
+                    <h3>Eco Home Holding</h3>
+                    <p>Construcciones sostenibles</p>
+                </div>
+                <div class="proveedor-card fade-up">
+                    <div class="proveedor-icon"><i class="fas fa-truck-monster"></i></div>
+                    <h3>META</h3>
+                    <p>Maquinaria pesada</p>
+                </div>
+                <div class="proveedor-card fade-up">
+                    <div class="proveedor-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3>La Lámpara</h3>
+                    <p>Ciudad Ecológica</p>
+                </div>
+                <div class="proveedor-card fade-up">
+                    <div class="proveedor-icon"><i class="fas fa-sun"></i></div>
+                    <h3>Sol Energy</h3>
+                    <p>Energía solar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="contacto" id="contacto">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <div class="contacto-grid">
+                <div class="contacto-info">
+                    <div class="contacto-item fade-up">
+                        <div class="contacto-icon"><i class="fas fa-phone"></i></div>
+                        <div class="contacto-text"><h3>Teléfonos</h3><p><a href="tel:02763431155">0276-343.11.55</a> / <a href="tel:04247329980">0424-732.99.80</a></p></div>
+                    </div>
+                    <div class="contacto-item fade-up">
+                        <div class="contacto-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contacto-text"><h3>Correo</h3><p><a href="mailto:Inpelka2020@gmail.com">Inpelka2020@gmail.com</a></p></div>
+                    </div>
+                    <div class="contacto-item fade-up">
+                        <div class="contacto-icon"><i class="fab fa-instagram"></i></div>
+                        <div class="contacto-text"><h3>Instagram</h3><p><a href="https://instagram.com/Inversiones_Inpelka" target="_blank">@Inversiones_Inpelka</a></p></div>
+                    </div>
+                    <div class="contacto-item fade-up">
+                        <div class="contacto-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contacto-text"><h3>Dirección</h3><p>Av Libertador, Unicentro Leomar, piso 2, of. 5, San Cristóbal, Táchira</p></div>
+                    </div>                    
+                </div>
+                <div class="contacto-form fade-up">
+                    <form id="contactForm">
+                        <div class="form-group"><label>Nombre</label><input type="text" required placeholder="Tu nombre"></div>
+                        <div class="form-group"><label>Correo</label><input type="email" required placeholder="tu@email.com"></div>
+                        <div class="form-group"><label>Teléfono</label><input type="tel" placeholder="0424-000.00.00"></div>
+                        <div class="form-group"><label>Servicio</label>
+                            <select><option value="">Selecciona...</option>
+                                <option>Obras Civiles</option><option>Hidráulica</option><option>Energía Solar</option>
+                                <option>Maquinaria</option><option>Software</option><option>Seguridad</option><option>Otros</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Mensaje</label><textarea required placeholder="Cuéntanos..."></textarea></div>
+                        <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h3>Inversiones Inpelka C.A.</h3>
+                <p>Más que construcciones, soluciones. Desde 2002.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com/Inversiones_Inpelka" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/Inpelka" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://facebook.com/Inpelka" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://youtube.com/Inpelka" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://linkedin.com/company/inpelka" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <p><a href="#servicios">Obras Civiles</a></p>
+                <p><a href="#servicios">Hidráulica</a></p>
+                <p><a href="#servicios">Energía Solar</a></p>
+                <p><a href="#servicios">Maquinaria</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces</h3>
+                <p><a href="#home">Inicio</a></p>
+                <p><a href="#nosotros">Nosotros</a></p>
+                <p><a href="#proyectos">Proyectos</a></p>
+                <p><a href="#contacto">Contacto</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Horario</h3>
+                <p>Lunes a Viernes</p>
+                <p>8:00 AM - 5:00 PM</p>
+                <p>San Cristóbal, Táchira</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Inversiones Inpelka 2026 © Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <a href="https://wa.me/584247329980?text=Hola%2C%20me%20interesa%20obtener%20información%20sobre%20sus%20servicios" 
+       class="whatsapp-float" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       aria-label="Contáctanos por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const serviceImages = {
+            'obras-civiles': [
+                { src: 'img/obras-civiles-1.jpg', fallback: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200' },
+                { src: 'img/obras-civiles-2.jpg', fallback: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200' }
+            ],
+            'hidraulica': [
+                { src: 'img/hidraulica-1.jpg', fallback: 'https://images.unsplash.com/photo-1590644365607-1c5a0e1e030a?w=1200' }
+            ],
+            'solar': [
+                { src: 'img/solar-1.jpg', fallback: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200' },
+                { src: 'img/solar-2.jpg', fallback: 'https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=1200' },
+                { src: 'img/solar-3.jpg', fallback: 'https://images.unsplash.com/photo-1613665813446-82a78c468a1a?w=1200' }
+            ],
+            'maquinaria': [
+                { src: 'img/maquinaria-1.jpg', fallback: 'https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=1200' }
+            ],
+            'software': [
+                { src: 'img/software-1.jpg', fallback: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200' }
+            ],
+            'seguridad': [
+                { src: 'img/seguridad-1.jpg', fallback: 'https://images.unsplash.com/photo-1558002038-1055907df827?w=1200' }
+            ]
+        };
+
+        let currentService = '';
+        let currentImageIndex = 0;
+
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(a => {
+            a.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        function toggleDropdown(header) {
+            const dropdown = header.parentElement;
+            const isActive = dropdown.classList.contains('active');
+            document.querySelectorAll('.servicio-dropdown').forEach(d => d.classList.remove('active'));
+            if (!isActive) dropdown.classList.add('active');
+        }
+
+        function openImageModal(service, index) {
+            const images = serviceImages[service];
+            if (!images || !images[index]) return;
+
+            currentService = service;
+            currentImageIndex = index;
+
+            const img = images[index];
+            const modalImg = document.getElementById('modalImage');
+            
+            modalImg.src = img.src;
+            modalImg.onerror = () => { modalImg.src = img.fallback; };
+            
+            document.getElementById('modalCounter').textContent = `${index + 1} / ${images.length}`;
+            
+            const modal = document.getElementById('imageModal');
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        function navigateImage(direction) {
+            const images = serviceImages[currentService];
+            if (!images) return;
+
+            currentImageIndex = (currentImageIndex + direction + images.length) % images.length;
+            const img = images[currentImageIndex];
+            
+            const modalImg = document.getElementById('modalImage');
+            modalImg.style.opacity = '0';
+            
+            setTimeout(() => {
+                modalImg.src = img.src;
+                modalImg.onerror = () => { modalImg.src = img.fallback; };
+                modalImg.style.opacity = '1';
+            }, 200);
+
+            document.getElementById('modalCounter').textContent = `${currentImageIndex + 1} / ${images.length}`;
+        }
+
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('imageModal');
+            if (!modal.classList.contains('show')) return;
+            
+            if (e.key === 'Escape') closeImageModal();
+            if (e.key === 'ArrowLeft') navigateImage(-1);
+            if (e.key === 'ArrowRight') navigateImage(1);
+        });
+
+        document.getElementById('imageModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('imageModal')) closeImageModal();
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('.btn-submit');
+            btn.innerHTML = '<i class="fas fa-check"></i> ¡Enviado!';
+            btn.style.background = 'var(--verde)';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar';
+                btn.style.background = '';
+                e.target.reset();
+            }, 3000);
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) window.scrollTo({ top: target.offsetTop - 75, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
